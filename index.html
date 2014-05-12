@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link href="js/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+<script src="js/jquery-1.6.4.min.js" type="text/javascript"></script>
+<script src="js/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+
+<!--script src="phonegap.js"></script-->
+
+<script type="text/javascript">
+$(function(){
+document.addEventListener("deviceready", function(){
+	
+	
+	var boton=$("#guardar");
+	boton.tap(function(){
+	var marc=$("#marca").val();
+	var mod=$("#modelo").val();
+	var col=$("#color").val();
+	var prec=$("#precio").val();
+	
+	if (marc!="" && mod!="" && col!="" && prec!=""){
+		enviar (marc, mod, col, prec);
+		} else {
+			//alert("Funciona")
+			alert("Favor de Registrar Datos en los campos");
+			}
+	
+	});
+	///////////////////////              fin boton guardar
+	
+	
+        ///////////////////////              editar
+	
+	var btnEditar=$("#editar");
+	btnEditar.tap(function(){
+	var idi=$("#txtId").val();
+	var marc=$("#edMarca").val();
+	var mod=$("#edModelo").val();
+	var col=$("#edColor").val();
+	var prec=$("#edPrecio").val();
+	
+	if(idi != ""){
+	if (marc!="" && mod!="" && col!="" && prec!=""){
+		editar (idi, marc, mod, col, prec);
+		} else {
+			}
+	}
+	else{
+	alert("Id Vacio");
+	}
+	
+	
+	});
+	
+	
+	//////////////               fin editar
+	
+	
+	
+        ///////////////////////              eliminar
+	
+	var btnEditar=$("#eliminar");
+	btnEditar.tap(function(){
+	var idi=$("#txtId").val();
+	if(idi != ""){
+		eliminar (idi);
+	}
+	else{
+	alert("Id Vacio");
+	}
+	
+	
+	});
+	
+	
+	
+	//////////////               fin eliminar
+	
+	
+	
+	
+	
+	
+	//////////////               consultar
+	
+	var btnConsulta = $("#consultar");
+	btnConsulta.tap(function(){
+	$.ajax({
+			
+			type:"POST",
+			url:"http://diego_rogelio.260mb.net/Transporte/consulta.php",
+			data: "",
+			success: consultando
+	});
+	});
+	
+	
+	
+	
+	},false);
+	});
+	
+	function consultando (data){
+	var registro=$.parseJSON(data);
+	var mostrar=$("#datos");
+	var id=$("#lId");
+	var marca=$("#lMarca");
+	var modelo=$("#lModelo");
+	var precio=$("#lPrecio");
+	var color=$("#lColor");
+	
+	id.html("");
+	marca.html("");
+	modelo.html("");
+	color.html("");
+	precio.html("");
+	
+	for(var i in registro){
+	
+
+	id.append(registro[i].id_auto+"<br>");
+	marca.append(registro[i].Marca +"<br>");
+	modelo.append( registro[i].Modelo  +"<br>");
+	color.append(registro[i].Color +"<br>");
+	precio.append(registro[i].Precio +"<br>");
+	
+	}
+	
+	
+	}
+	
+	
+	function enviar (marc, mod, col, prec){
+		$.ajax({
+			
+			type:"POST",
+			url:"http://diego_rogelio.260mb.net/Transporte/procesar.php",
+			data: "Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
+			success: onSuccess
+				
+		}).done(function(msg){
+			if(msg==1){
+				
+				}else{
+					
+					}
+					
+		});
+		
+		function onSuccess(data){
+			
+			alert (data);
+			
+			}
+
+			}
+		function editar (id, marc, mod, col, prec){
+		$.ajax({
+			
+			type:"POST",
+			url:"http://diego_rogelio.260mb.net/Transporte/editar.php",
+			data: "Id="+id+"&Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
+			success: onSuccess
+				
+		}).done(function(msg){
+			if(msg==1){
+				
+				}else{
+					
+					}
+					
+		});
+		
+		function onSuccess(data){
+			
+			alert (data);
+			
+			}
+
+			}
+	
+function eliminar (id){
+		$.ajax({
+			
+			type:"POST",
+			url:"http://diego_rogelio.260mb.net/Transporte/eliminar.php",
+			data: "Id="+id,
+			success: onSuccess
+				
+		}).done(function(msg){
+			if(msg==1){
+				
+				}else{
+					
+					}
+					
+		});
+		
+		function onSuccess(data){
+			
+			alert (data);
+			
+			}
+
+			}
+		
+ </script>
+
+</head>
+
+
+<body>
+<div data-role="page" id="principal" data-transition="flip">
+<div data-role="header">
+<h1>Principal</h1>
+</div>
+<div data-role="content">
+
+<a href="#captura" data-role="button">Capturar</a>
+<a href="#consultas" data-role="button">Consultas</a>
+
+
+</div>
+<div data-role="footer"></div>
+</div>
+
+<div data-role="page" id="captura">
+<div data-role="header">
+<h3>Capturas</h3>
+</div>
+<div data-role="content">
+	<ul data-role="listview">
+		<li><input type="text" id="marca" placeholder="Marca"</li>
+		<li><input type="text" id="modelo" placeholder="Modelo"</li>
+		<li><input type="text" id="color" placeholder="Color"</li>
+		<li><input type="text" id="precio" placeholder="Precio"</li>
+	</ul>
+</div>
+
+<div data-role="footer">
+	<a href="#" data-role="button" id="guardar">Guardar</a>
+	<a href="#principal" data-role="button">Menu principal</a>
+</div>
+</div>
+
+<div data-role="page" id="editar">
+<div data-role="header">
+<h3>Consultas</h3>
+</div>
+<div data-role="content">
+<ul data-role="listview">
+		<li><input type="text" id="edMarca" placeholder="Marca"</li>
+		<li><input type="text" id="edModelo" placeholder="Modelo"</li>
+		<li><input type="text" id="edColor" placeholder="Color"</li>
+		<li><input type="text" id="edPrecio" placeholder="Precio"</li>
+</ul>
+<a href="#editar" data-role="button" id="editar">Editar</a>
+</div>
+</div>
+
+
+
+<div data-role="page" id="consultas">
+<div data-role="header">
+<h3>Consultas</h3>
+</div>
+<div data-role="content">
+	<a href="#" data-role="button" id="consultar">Consultar</a>
+	<p>Datos</p>
+	<div id="datos">
+	<table>
+	<tr style="background-color:black; color: gray"><td>Id</td><td>Marca</td><td>Color</td><td>Modelo</td><td>Precio</td></tr>
+	<tr><td><listview id="lId"></listview></td>
+	<td><listview id="lMarca"></listview></td>
+	<td><listview id="lColor"></listview></td>
+	<td><listview id="lModelo"></listview></td>
+	<td><listview id="lPrecio"></listview></td></tr>
+	</table>
+	
+	<input type="text" id="txtId" placeholder="Id"/>
+	<a href="#editar" data-role="button" >Editar</a>
+	<a href="#" data-role="button" id="eliminar">Eliminar</a>
+	</div>
+</div>
+<div data-role="footer">
+	<a href="#principal" data-role="button">Menú principal</a>
+</div>
+
+</div>
+
+
+
+
+</body>
+</html>
