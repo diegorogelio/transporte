@@ -91,7 +91,7 @@ document.addEventListener("deviceready", function(){
 	$.ajax({
 			
 			type:"POST",
-			url:"http://developerweb.260mb.net/tercerp/consulta.php",
+			url:"http://diego_rogelio.260mb.net/tercerp/consulta.php",
 			data: "",
 			success: consultando
 	});
@@ -137,7 +137,7 @@ document.addEventListener("deviceready", function(){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://developerweb.260mb.net/tercerp/procesar.php",
+			url:"http://diego_rogelio.260mb.net/tercerp/procesar.php",
 			data: "Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
 			success: onSuccess
 				
@@ -161,7 +161,7 @@ document.addEventListener("deviceready", function(){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://developerweb.260mb.net/tercerp/editar.php",
+			url:"http://diego_rogelio.260mb.net/tercerp/editar.php",
 			data: "Id="+id+"&Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
 			success: onSuccess
 				
@@ -186,7 +186,7 @@ function eliminar (id){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://developerweb.260mb.net/tercerp/eliminar.php",
+			url:"http://diego_rogelio.260mb.net/tercerp/eliminar.php",
 			data: "Id="+id,
 			success: onSuccess
 				
