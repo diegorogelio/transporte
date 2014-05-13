@@ -91,7 +91,7 @@ document.addEventListener("deviceready", function(){
 	$.ajax({
 			
 			type:"POST",
-			url:"http://diego_rogelio.260mb.net/Transporte/consulta.php",
+			url:"http://developerweb.260mb.net/tercerp/consulta.php",
 			data: "",
 			success: consultando
 	});
@@ -137,7 +137,7 @@ document.addEventListener("deviceready", function(){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://diego_rogelio.260mb.net/Transporte/procesar.php",
+			url:"http://developerweb.260mb.net/tercerp/procesar.php",
 			data: "Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
 			success: onSuccess
 				
@@ -161,7 +161,7 @@ document.addEventListener("deviceready", function(){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://diego_rogelio.260mb.net/Transporte/editar.php",
+			url:"http://developerweb.260mb.net/tercerp/editar.php",
 			data: "Id="+id+"&Marca=" +marc+"&Modelo="+mod+"&Color="+col+"&Precio="+prec,
 			success: onSuccess
 				
@@ -186,7 +186,7 @@ function eliminar (id){
 		$.ajax({
 			
 			type:"POST",
-			url:"http://diego_rogelio.260mb.net/Transporte/eliminar.php",
+			url:"http://developerweb.260mb.net/tercerp/eliminar.php",
 			data: "Id="+id,
 			success: onSuccess
 				
@@ -272,7 +272,7 @@ function eliminar (id){
 	<p>Datos</p>
 	<div id="datos">
 	<table>
-	<tr style="background-color:black; color: gray"><td>Id</td><td>Marca</td><td>Color</td><td>Modelo</td><td>Precio</td></tr>
+	<tr><td>Id</td><td>Marca</td><td>Color</td><td>Modelo</td><td>Precio</td></tr>
 	<tr><td><listview id="lId"></listview></td>
 	<td><listview id="lMarca"></listview></td>
 	<td><listview id="lColor"></listview></td>
